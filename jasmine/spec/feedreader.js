@@ -93,19 +93,24 @@ $(function () {
          * by the loadFeed function that the content actually changes.
          * Remember, loadFeed() is asynchronous.
          */
+        describe('New Feed Selection', function () {
+            let feedOne;
+            let feedTwo;
 
-        beforeEach(function (done) {
-            loadFeed(0);
-            Array.from(feed.children).forEach(function (entry) {
-                firstFeed.push(entry.innerText);
+            beforeEach(function (done) {
+
+                loadFeed(0, function () {
+
+                    feedOne = feed.querySelectorAll('innerHTML');
+                    loadFeed(1, function () {
+                        feed.querySelectorAll('innerHTML');
+                        done();
+                    });
+                });
             });
-            loadFeed(1, done);
-        });
 
-        it('1) content changes', function () {
-            Array.from(feed.children).forEach(function (entry, index) {
-                console.log(entry.innerText, firstFeed[index], entry.innerText == firstFeed[index]);
-                expect(entry.innterText == firstFeed[index]).toBe(false)
+            it('content changes', function () {
+                expect(feedOne).not.toBe(feedTwo);
             });
         });
     });
