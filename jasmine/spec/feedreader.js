@@ -84,7 +84,10 @@ $(function () {
         });
 
         it('1) completes there work', function () {
-            expect(feed.children.length > 0).toBe(true);
+            let feedEntry = $('.feed .entry-link .entry').length;
+            expect(feedEntry).toBeGreaterThan(0);
+            console.log(feedEntry);
+
         });
     });
     /* TODO: Write a new test suite named "New Feed Selection" */
@@ -110,8 +113,10 @@ $(function () {
             });
 
             it('content changes', function () {
-                expect(feedOne).not.toBe(feedTwo);
+                expect(feedOne).not.toEqual(feedTwo);
             });
         });
     });
 }());
+
+
